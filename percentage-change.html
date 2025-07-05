@@ -139,12 +139,13 @@
         color: #64748b;
       }
 
-      .ad-block {
-        background: #eff6ff;
+      .sponsor-section {
+        background: #f3f4f6;
+        border: 2px dashed #d1d5db;
         padding: 40px;
         text-align: center;
         margin: 30px 0;
-        color: #64748b;
+        color: #374151;
       }
 
       .section {
@@ -295,9 +296,9 @@
 
     <div class="breadcrumb"><a href="index.html">Home</a> > Percentage Change Calculator</div>
 
-    <div class="ad-block">
-      <strong>Advertisement</strong><br />
-      Professional financial tools and calculators - Start calculating smarter today
+    <div class="sponsor-section">
+      <strong>Featured Tool</strong><br />
+      Professional financial calculation tools - Get accurate results instantly
     </div>
 
     <div class="calculator-section">
@@ -318,8 +319,8 @@
       </div>
     </div>
 
-    <div class="ad-block">
-      <strong>Advertisement</strong><br />
+    <div class="sponsor-section">
+      <strong>Partner Content</strong><br />
       Advanced calculation tools for professionals - Upgrade your financial planning
     </div>
 
@@ -375,131 +376,3 @@
       <div class="faq-item">
         <div class="faq-question">What's the difference between percentage change and percentage point change?</div>
         <div class="faq-answer">
-          Percentage change shows the relative change as a percentage of the original value. Percentage point change
-          shows the absolute difference between two percentages. For example, if something goes from 10% to 15%, that's
-          a 50% change but a 5 percentage point change.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">Can percentage change be negative?</div>
-        <div class="faq-answer">
-          Yes! A negative percentage change indicates a decrease. For example, if a value goes from 100 to 80, that's a
-          -20% change, showing a 20% decrease.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">How do I calculate percentage increase vs percentage decrease?</div>
-        <div class="faq-answer">
-          The formula is the same for both. If the new value is larger than the original, you get a positive percentage
-          (increase). If the new value is smaller, you get a negative percentage (decrease).
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">What if the original value is zero?</div>
-        <div class="faq-answer">
-          You cannot calculate percentage change when the original value is zero, as this would involve division by
-          zero. In such cases, you might consider using absolute change instead.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">How is this useful in real life?</div>
-        <div class="faq-answer">
-          Percentage change is used everywhere: tracking investment returns, analyzing business growth, comparing
-          prices, measuring performance improvements, scientific research, and much more. It provides a standardized way
-          to express change regardless of the scale of the numbers involved.
-        </div>
-      </div>
-    </div>
-
-    <div class="ad-block">
-      <strong>Advertisement</strong><br />
-      Premium tools available - Upgrade for advanced features
-    </div>
-
-    <div class="footer">
-      <div class="footer-links">
-        <a href="index.html#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#privacy">Privacy Policy</a>
-        <a href="#terms">Terms of Service</a>
-        <a href="/blog">Blog</a>
-      </div>
-
-      <div class="social-links">
-        <a href="https://instagram.com/calcmode">Instagram</a>
-        <a href="https://twitter.com/calcmode">Twitter</a>
-        <a href="https://bluesky.app/calcmode">Bluesky</a>
-      </div>
-
-      <p>&copy; 2024 CalcMode. All rights reserved.</p>
-    </div>
-
-    <script>
-      // Wait for DOM to be fully loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        function calculatePercentageChange() {
-          const originalValue = parseFloat(document.getElementById('original-value').value);
-          const newValue = parseFloat(document.getElementById('new-value').value);
-          const resultElement = document.getElementById('result-value');
-          const labelElement = document.getElementById('result-label');
-
-          // Check if elements exist
-          if (!resultElement || !labelElement) {
-            console.error('Required DOM elements not found');
-            return;
-          }
-
-          if (isNaN(originalValue) || isNaN(newValue)) {
-            resultElement.textContent = '0%';
-            resultElement.className = 'result-value';
-            labelElement.textContent = 'Percentage Change';
-            return;
-          }
-
-          if (originalValue === 0) {
-            resultElement.textContent = 'N/A';
-            resultElement.className = 'result-value';
-            labelElement.textContent = 'Cannot divide by zero';
-            return;
-          }
-
-          const change = ((newValue - originalValue) / originalValue) * 100;
-          const roundedChange = Math.round(change * 100) / 100;
-
-          resultElement.textContent = roundedChange + '%';
-
-          if (change > 0) {
-            resultElement.className = 'result-value positive';
-            labelElement.textContent = 'Percentage Increase';
-          } else if (change < 0) {
-            resultElement.className = 'result-value negative';
-            labelElement.textContent = 'Percentage Decrease';
-          } else {
-            resultElement.className = 'result-value';
-            labelElement.textContent = 'No Change';
-          }
-        }
-
-        // Attach event listeners with error checking
-        const originalInput = document.getElementById('original-value');
-        const newInput = document.getElementById('new-value');
-        
-        if (originalInput && newInput) {
-          originalInput.addEventListener('input', calculatePercentageChange);
-          newInput.addEventListener('input', calculatePercentageChange);
-          
-          // Run initial calculation if both fields have values
-          if (originalInput.value && newInput.value) {
-            calculatePercentageChange();
-          }
-        } else {
-          console.error('Input elements not found');
-        }
-      });
-    </script>
-  </body>
-</html>
