@@ -50,10 +50,13 @@
       }
 
       .logo {
-        width: 80px;
-        height: 80px;
+        width: 160px;
+        height: 160px;
         margin: 0 auto 20px auto;
         display: block;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
       }
 
       .header p {
@@ -237,13 +240,7 @@
         <a href="/blog">Blog</a>
       </nav>
 
-      <svg class="logo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M55 25 Q25 25 25 40 Q25 55 55 55" stroke="#2563eb" stroke-width="2" fill="none"></path>
-        <text x="35" y="32" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">+</text>
-        <text x="35" y="42" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">-</text>
-        <text x="45" y="32" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">×</text>
-        <text x="45" y="42" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">÷</text>
-      </svg>
+      <img class="logo" src="https://page1.genspark.site/v1/base64_upload/039b2cd8c9550e7ec6ff139c998789b7" alt="CalcMode Logo" width="160" height="160" />
 
       <p>Smart calculation modes for every need - Switch to the right calculator instantly</p>
     </div>
@@ -279,12 +276,20 @@
 
       <div class="calc-card">
         <svg class="calc-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 45 Q20 35 30 30 Q40 25 50 15" stroke="#2563eb" stroke-width="2" fill="none"></path>
-          <path d="M45 12 L50 15 L47 20" stroke="#2563eb" stroke-width="2" fill="none"></path>
-          <circle cx="15" cy="42" r="2" fill="#2563eb"></circle>
-          <circle cx="25" cy="32" r="2" fill="#2563eb"></circle>
-          <circle cx="35" cy="27" r="2" fill="#2563eb"></circle>
-          <circle cx="45" cy="18" r="2" fill="#2563eb"></circle>
+          <!-- Stack 1: 1 coin -->
+          <circle cx="12" cy="45" r="4" fill="#2563eb"></circle>
+          <!-- Stack 2: 2 coins -->
+          <circle cx="24" cy="45" r="4" fill="#2563eb"></circle>
+          <circle cx="24" cy="37" r="4" fill="#2563eb"></circle>
+          <!-- Stack 3: 3 coins -->
+          <circle cx="36" cy="45" r="4" fill="#2563eb"></circle>
+          <circle cx="36" cy="37" r="4" fill="#2563eb"></circle>
+          <circle cx="36" cy="29" r="4" fill="#2563eb"></circle>
+          <!-- Stack 4: 4 coins -->
+          <circle cx="48" cy="45" r="4" fill="#2563eb"></circle>
+          <circle cx="48" cy="37" r="4" fill="#2563eb"></circle>
+          <circle cx="48" cy="29" r="4" fill="#2563eb"></circle>
+          <circle cx="48" cy="21" r="4" fill="#2563eb"></circle>
         </svg>
         <h3>Compound Interest</h3>
         <p>Calculate compound interest for investments and savings over time</p>
