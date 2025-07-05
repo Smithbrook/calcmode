@@ -177,32 +177,6 @@
         margin: 0 auto 30px auto;
       }
 
-      .coming-soon-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-      }
-
-      .coming-soon-card {
-        background: #f8fafc;
-        padding: 20px;
-        text-align: center;
-        border: 1px solid #e2e8f0;
-        opacity: 0.6;
-      }
-
-      .coming-soon-card h4 {
-        color: #1e293b;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-      }
-
-      .coming-soon-card p {
-        color: #64748b;
-        font-size: 0.9rem;
-      }
-
       .footer {
         text-align: center;
         padding: 40px 0;
@@ -258,7 +232,7 @@
   </head>
   <body>
     <div class="sponsor-section">
-      <strong>Partner Showcase</strong><br />
+      <strong>Featured Tools</strong><br />
       Professional financial tools and calculators - Start calculating smarter today
     </div>
 
@@ -268,19 +242,14 @@
         <a href="#calculators">Calculators</a>
         <a href="#about">About</a>
         <a href="/blog">Blog</a>
-        <a href="#contact">Contact</a>
       </nav>
 
       <svg class="logo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="25" cy="25" r="15" stroke="#2563eb" stroke-width="2" fill="none"></circle>
-        <rect x="50" y="10" width="20" height="20" stroke="#2563eb" stroke-width="2" fill="none"></rect>
-        <path d="M25 55 L35 70 L15 70 Z" stroke="#2563eb" stroke-width="2" fill="none"></path>
-        <path d="M35 25 L45 25" stroke="#2563eb" stroke-width="2"></path>
-        <path d="M60 35 L60 45" stroke="#2563eb" stroke-width="2"></path>
-        <path d="M35 60 L45 60" stroke="#2563eb" stroke-width="2"></path>
-        <circle cx="40" cy="25" r="3" fill="#2563eb"></circle>
-        <circle cx="60" cy="40" r="3" fill="#2563eb"></circle>
-        <circle cx="40" cy="60" r="3" fill="#2563eb"></circle>
+        <path d="M55 25 Q25 25 25 40 Q25 55 55 55" stroke="#2563eb" stroke-width="2" fill="none"></path>
+        <text x="35" y="32" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">+</text>
+        <text x="35" y="42" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">-</text>
+        <text x="45" y="32" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">×</text>
+        <text x="45" y="42" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">÷</text>
       </svg>
 
       <h1>CalcMode</h1>
@@ -298,9 +267,7 @@
     <div id="calculators" class="calculators-grid">
       <div class="calc-card">
         <svg class="calc-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="30" cy="30" r="25" stroke="#2563eb" stroke-width="2" fill="none"></circle>
-          <path d="M20 30 L25 25 L35 35 L40 30" stroke="#2563eb" stroke-width="2" fill="none"></path>
-          <text x="30" y="35" text-anchor="middle" fill="#2563eb" font-size="12">%</text>
+          <text x="30" y="40" text-anchor="middle" fill="#2563eb" font-size="32" font-weight="bold">%</text>
         </svg>
         <h3>Percentage Change</h3>
         <p>Calculate percentage increase or decrease between two values instantly</p>
@@ -320,9 +287,12 @@
 
       <div class="calc-card">
         <svg class="calc-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="30" cy="30" r="25" stroke="#2563eb" stroke-width="2" fill="none"></circle>
-          <path d="M15 30 Q30 15 45 30 Q30 45 15 30" stroke="#2563eb" stroke-width="2" fill="none"></path>
-          <text x="30" y="35" text-anchor="middle" fill="#2563eb" font-size="10">CI</text>
+          <path d="M10 45 Q20 35 30 30 Q40 25 50 15" stroke="#2563eb" stroke-width="2" fill="none"></path>
+          <path d="M45 12 L50 15 L47 20" stroke="#2563eb" stroke-width="2" fill="none"></path>
+          <circle cx="15" cy="42" r="2" fill="#2563eb"></circle>
+          <circle cx="25" cy="32" r="2" fill="#2563eb"></circle>
+          <circle cx="35" cy="27" r="2" fill="#2563eb"></circle>
+          <circle cx="45" cy="18" r="2" fill="#2563eb"></circle>
         </svg>
         <h3>Compound Interest</h3>
         <p>Calculate compound interest for investments and savings over time</p>
@@ -393,7 +363,7 @@
     </div>
 
     <div class="sponsor-section">
-      <strong>Featured Tools</strong><br />
+      <strong>Partner Content</strong><br />
       Advanced calculation tools for professionals - Upgrade your financial planning
     </div>
 
@@ -411,30 +381,6 @@
       </p>
     </div>
 
-    <div class="section">
-      <h2>Coming Soon</h2>
-      <p>We're constantly expanding our calculator suite. Here's what's in development:</p>
-
-      <div class="coming-soon-grid">
-        <div class="coming-soon-card">
-          <h4>Tax Calculator</h4>
-          <p>Calculate taxes and deductions</p>
-        </div>
-        <div class="coming-soon-card">
-          <h4>Mortgage Calculator</h4>
-          <p>Calculate mortgage payments</p>
-        </div>
-        <div class="coming-soon-card">
-          <h4>Currency Converter</h4>
-          <p>Convert between currencies</p>
-        </div>
-        <div class="coming-soon-card">
-          <h4>BMI Calculator</h4>
-          <p>Calculate body mass index</p>
-        </div>
-      </div>
-    </div>
-
     <div class="sponsor-section">
       <strong>Premium Features</strong><br />
       Advanced tools and professional features - Upgrade your calculation experience
@@ -443,7 +389,7 @@
     <div class="footer">
       <div class="footer-links">
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="mailto:support@calcmode.com">Contact</a>
         <a href="#privacy">Privacy Policy</a>
         <a href="#terms">Terms of Service</a>
         <a href="/blog">Blog</a>
