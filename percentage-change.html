@@ -50,10 +50,13 @@
       }
 
       .logo {
-        width: 60px;
-        height: 60px;
+        width: 120px;
+        height: 120px;
         margin: 0 auto 20px auto;
         display: block;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
       }
 
       .header h1 {
@@ -72,7 +75,7 @@
       .breadcrumb {
         color: #64748b;
         font-size: 0.9rem;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         text-align: center;
       }
 
@@ -84,7 +87,7 @@
       .calculator-section {
         background: white;
         padding: 40px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         border: 1px solid #e2e8f0;
       }
 
@@ -139,15 +142,6 @@
         color: #64748b;
       }
 
-      .sponsor-section {
-        background: #f3f4f6;
-        border: 2px dashed #d1d5db;
-        padding: 40px;
-        text-align: center;
-        margin: 30px 0;
-        color: #374151;
-      }
-
       .section {
         background: white;
         padding: 40px;
@@ -165,6 +159,11 @@
       .faq-item {
         margin-bottom: 25px;
         padding-bottom: 25px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .faq-item:last-child {
+        border-bottom: none;
       }
 
       .faq-question {
@@ -276,23 +275,14 @@
         <a href="/blog">Blog</a>
       </nav>
 
-      <svg class="logo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M55 25 Q25 25 25 40 Q25 55 55 55" stroke="#2563eb" stroke-width="2" fill="none"></path>
-        <text x="35" y="32" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">+</text>
-        <text x="35" y="42" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">-</text>
-        <text x="45" y="32" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">×</text>
-        <text x="45" y="42" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">÷</text>
-      </svg>
+      <img class="logo" src="https://page1.genspark.site/v1/base64_upload/039b2cd8c9550e7ec6ff139c998789b7" alt="CalcMode Logo" width="120" height="120" />
 
       <h1>Percentage Change Calculator</h1>
       <p>Calculate percentage increase or decrease between two values instantly</p>
     </div>
 
-    <div class="breadcrumb"><a href="index.html">Home</a> > Percentage Change Calculator</div>
-
-    <div class="sponsor-section">
-      <strong>Featured Tool</strong><br />
-      Professional financial calculation tools - Get accurate results instantly
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> > Percentage Change Calculator
     </div>
 
     <div class="calculator-section">
@@ -311,11 +301,6 @@
         <div class="result-value" id="result-value">0%</div>
         <div class="result-label" id="result-label">Percentage Change</div>
       </div>
-    </div>
-
-    <div class="sponsor-section">
-      <strong>Partner Content</strong><br />
-      Advanced calculation tools for professionals - Upgrade your financial planning
     </div>
 
     <div class="section">
@@ -410,11 +395,6 @@
       </div>
     </div>
 
-    <div class="sponsor-section">
-      <strong>Premium Features</strong><br />
-      Advanced tools and professional features - Upgrade your calculation experience
-    </div>
-
     <div class="footer">
       <div class="footer-links">
         <a href="index.html#about">About</a>
@@ -425,3 +405,76 @@
       </div>
 
       <div class="social-links">
+        <a href="https://instagram.com/calcmode">Instagram</a>
+        <a href="https://twitter.com/calcmode">Twitter</a>
+        <a href="https://bluesky.app/calcmode">Bluesky</a>
+      </div>
+
+      <p>&copy; 2024 CalcMode. All rights reserved.</p>
+    </div>
+
+    <script>
+      // Wait for DOM to be fully loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        function calculatePercentageChange() {
+          const originalValue = parseFloat(document.getElementById('original-value').value);
+          const newValue = parseFloat(document.getElementById('new-value').value);
+          const resultElement = document.getElementById('result-value');
+          const labelElement = document.getElementById('result-label');
+
+          // Check if elements exist
+          if (!resultElement || !labelElement) {
+            console.error('Required DOM elements not found');
+            return;
+          }
+
+          if (isNaN(originalValue) || isNaN(newValue)) {
+            resultElement.textContent = '0%';
+            resultElement.className = 'result-value';
+            labelElement.textContent = 'Percentage Change';
+            return;
+          }
+
+          if (originalValue === 0) {
+            resultElement.textContent = 'N/A';
+            resultElement.className = 'result-value';
+            labelElement.textContent = 'Cannot divide by zero';
+            return;
+          }
+
+          const change = ((newValue - originalValue) / originalValue) * 100;
+          const roundedChange = Math.round(change * 100) / 100;
+
+          resultElement.textContent = roundedChange + '%';
+
+          if (change > 0) {
+            resultElement.className = 'result-value positive';
+            labelElement.textContent = 'Percentage Increase';
+          } else if (change < 0) {
+            resultElement.className = 'result-value negative';
+            labelElement.textContent = 'Percentage Decrease';
+          } else {
+            resultElement.className = 'result-value';
+            labelElement.textContent = 'No Change';
+          }
+        }
+
+        // Attach event listeners with error checking
+        const originalInput = document.getElementById('original-value');
+        const newInput = document.getElementById('new-value');
+        
+        if (originalInput && newInput) {
+          originalInput.addEventListener('input', calculatePercentageChange);
+          newInput.addEventListener('input', calculatePercentageChange);
+          
+          // Run initial calculation if both fields have values
+          if (originalInput.value && newInput.value) {
+            calculatePercentageChange();
+          }
+        } else {
+          console.error('Input elements not found');
+        }
+      });
+    </script>
+  </body>
+</html>
