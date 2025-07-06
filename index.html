@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CalcMode - Professional Calculation Tools</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <style>
       body {
         max-width: 1200px;
@@ -103,8 +102,10 @@
 
       .form-group input, .form-group select {
         padding: 8px;
+        border: 1px solid #ddd;
         border-radius: 2px;
         font-size: 1rem;
+        background: white;
       }
 
       .calculator-actions {
@@ -160,10 +161,6 @@
         padding: 6px 0;
       }
 
-      .result-item:last-child {
-        border-bottom: none;
-      }
-
       .result-value {
         font-weight: 700;
         color: #27ae60;
@@ -201,10 +198,6 @@
         padding-bottom: 8px;
         font-size: 0.9rem;
         line-height: 1.4;
-      }
-
-      .network-item:last-child {
-        border-bottom: none;
       }
 
       .network-description {
@@ -825,4 +818,6 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-links">
-          <a href="#
+          <a href="#" onclick="showAboutPage()">About</a>
+          <a href="#" onclick="showSitemapPage()">Sitemap</a>
+          <a href="#terms-
