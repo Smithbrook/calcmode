@@ -39,8 +39,8 @@
       margin: 2rem 0 1.5rem 0;
     }
     header img {
-      width: 64px;
-      height: 64px;
+      width: 128px;
+      height: 128px;
       margin-bottom: 0.5rem;
       border-radius: 8px;
       box-shadow: var(--shadow);
@@ -172,7 +172,7 @@
     }
     @media (max-width: 600px) {
       body { padding: 0 0.2rem 2rem 0.2rem; }
-      header img { width: 48px; height: 48px; }
+      header img { width: 96px; height: 96px; }
       h1 { font-size: 1.2rem; }
       .tabs { font-size: 0.97em; }
       .tab-btn { padding: 0.6em 0.7em; }
@@ -336,7 +336,7 @@
       });
     });
 
-    // --- Calculators (same as before) ---
+    // 1. Percentage Gain/Loss Calculator
     function calcPercentGain() {
       const entry = parseFloat(document.getElementById('pg-entry').value);
       const exit = parseFloat(document.getElementById('pg-exit').value);
@@ -363,6 +363,7 @@
       document.getElementById('pg-result').style.display = 'none';
     }
 
+    // 2. Compound Interest Calculator
     function calcCompound() {
       const P = parseFloat(document.getElementById('ci-principal').value);
       const r = parseFloat(document.getElementById('ci-rate').value) / 100;
@@ -396,6 +397,7 @@
       document.getElementById('ci-result').style.display = 'none';
     }
 
+    // 3. Position Size Calculator
     function calcPositionSize() {
       const account = parseFloat(document.getElementById('ps-account').value);
       const riskPct = parseFloat(document.getElementById('ps-risk').value) / 100;
@@ -423,6 +425,7 @@
       document.getElementById('ps-result').style.display = 'none';
     }
 
+    // 4. Dividend Yield Calculator
     function calcDividendYield() {
       const price = parseFloat(document.getElementById('dy-price').value);
       const dividend = parseFloat(document.getElementById('dy-dividend').value);
@@ -455,6 +458,7 @@
       document.getElementById('dy-result').style.display = 'none';
     }
 
+    // 5. Risk-to-Reward Ratio Calculator
     function calcRiskReward() {
       const entry = parseFloat(document.getElementById('rr-entry').value);
       const stop = parseFloat(document.getElementById('rr-stop').value);
@@ -481,6 +485,7 @@
       document.getElementById('rr-result').style.display = 'none';
     }
 
+    // 6. Options Profit/Loss Calculator
     function calcOptionsPL() {
       const type = document.getElementById('op-type').value;
       const premium = parseFloat(document.getElementById('op-premium').value);
