@@ -59,30 +59,61 @@
       margin-bottom: 0.5em;
       text-align: center;
     }
-    details {
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05em;
+      padding: 0.3em 0.7em;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    nav a.active, nav a:hover {
       background: var(--secondary);
-      border-radius: var(--radius);
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
       margin-bottom: 1.2rem;
+      gap: 0.2rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 1em;
+      padding: 0.7em 1.2em;
+      cursor: pointer;
+      border-radius: 12px 12px 0 0;
+      transition: background 0.15s, color 0.15s;
+      outline: none;
+    }
+    .tab-btn.active {
+      background: var(--secondary);
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+    .tab-content {
+      display: none;
+      background: var(--secondary);
+      border-radius: 0 0 var(--radius) var(--radius);
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      padding: 0.5rem 0.8rem;
-      transition: box-shadow 0.2s;
+      border-top: none;
+      padding: 1.2em 1em 1em 1em;
+      margin-bottom: 1.2rem;
+      min-height: 180px;
     }
-    details[open] {
-      box-shadow: 0 4px 24px 0 rgba(30,41,59,0.10);
-    }
-    summary {
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      outline: none;
-      color: var(--primary);
-      padding: 0.5em 0;
-      user-select: none;
-    }
-    .calc-section {
-      margin-top: 0.5em;
-      padding-bottom: 0.5em;
+    .tab-content.active {
+      display: block;
     }
     label {
       display: block;
@@ -143,7 +174,9 @@
       body { padding: 0 0.2rem 2rem 0.2rem; }
       header img { width: 48px; height: 48px; }
       h1 { font-size: 1.2rem; }
-      details { padding: 0.3rem 0.3rem; }
+      .tabs { font-size: 0.97em; }
+      .tab-btn { padding: 0.6em 0.7em; }
+      .tab-content { padding: 0.7em 0.5em 0.7em 0.5em; }
     }
   </style>
 </head>
@@ -153,153 +186,157 @@
     <h1>Stock Trader’s Calculator Suite</h1>
     <div class="subtitle">Essential tools for investors &amp; traders</div>
   </header>
+  <nav>
+    <a href="index.html" class="active">Calculators</a>
+    <a href="about.html">About</a>
+  </nav>
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" data-tab="pg">Gain/Loss</button>
+    <button class="tab-btn" data-tab="ci">Compound</button>
+    <button class="tab-btn" data-tab="ps">Position Size</button>
+    <button class="tab-btn" data-tab="dy">Dividend Yield</button>
+    <button class="tab-btn" data-tab="rr">Risk/Reward</button>
+    <button class="tab-btn" data-tab="op">Options P/L</button>
+  </div>
 
   <!-- 1. Percentage Gain/Loss Calculator -->
-  <details open>
-    <summary>1. Percentage Gain/Loss Calculator</summary>
-    <div class="calc-section">
-      <div class="explanation">
-        Calculate your trade’s gain/loss, including fees. See both dollar and percent returns.
-      </div>
-      <label for="pg-entry">Entry Price ($)</label>
-      <input type="number" id="pg-entry" min="0" step="any" placeholder="e.g. 100">
-      <label for="pg-exit">Exit Price ($)</label>
-      <input type="number" id="pg-exit" min="0" step="any" placeholder="e.g. 120">
-      <label for="pg-shares">Shares</label>
-      <input type="number" id="pg-shares" min="1" step="1" placeholder="e.g. 10">
-      <label for="pg-fees">Total Fees/Commissions ($)</label>
-      <input type="number" id="pg-fees" min="0" step="any" placeholder="e.g. 2.50">
-      <button onclick="calcPercentGain()">Calculate</button>
-      <button onclick="clearPercentGain()" type="button">Clear</button>
-      <div id="pg-result" class="result" style="display:none"></div>
+  <div class="tab-content active" id="tab-pg">
+    <div class="explanation">
+      Calculate your trade’s gain/loss, including fees. See both dollar and percent returns.
     </div>
-  </details>
+    <label for="pg-entry">Entry Price ($)</label>
+    <input type="number" id="pg-entry" min="0" step="any" placeholder="e.g. 100">
+    <label for="pg-exit">Exit Price ($)</label>
+    <input type="number" id="pg-exit" min="0" step="any" placeholder="e.g. 120">
+    <label for="pg-shares">Shares</label>
+    <input type="number" id="pg-shares" min="1" step="1" placeholder="e.g. 10">
+    <label for="pg-fees">Total Fees/Commissions ($)</label>
+    <input type="number" id="pg-fees" min="0" step="any" placeholder="e.g. 2.50">
+    <button onclick="calcPercentGain()">Calculate</button>
+    <button onclick="clearPercentGain()" type="button">Clear</button>
+    <div id="pg-result" class="result" style="display:none"></div>
+  </div>
 
   <!-- 2. Compound Interest Calculator -->
-  <details>
-    <summary>2. Compound Interest Calculator</summary>
-    <div class="calc-section">
-      <div class="explanation">
-        See how your investments grow over time. Supports regular contributions.
-      </div>
-      <label for="ci-principal">Initial Amount ($)</label>
-      <input type="number" id="ci-principal" min="0" step="any" placeholder="e.g. 5000">
-      <label for="ci-rate">Annual Interest Rate (%)</label>
-      <input type="number" id="ci-rate" min="0" step="any" placeholder="e.g. 8">
-      <label for="ci-years">Years</label>
-      <input type="number" id="ci-years" min="1" step="1" placeholder="e.g. 10">
-      <label for="ci-contrib">Regular Contribution ($/period)</label>
-      <input type="number" id="ci-contrib" min="0" step="any" placeholder="e.g. 100">
-      <label for="ci-freq">Compounding Frequency</label>
-      <select id="ci-freq">
-        <option value="1">Annually</option>
-        <option value="2">Semi-annually</option>
-        <option value="4">Quarterly</option>
-        <option value="12" selected>Monthly</option>
-        <option value="52">Weekly</option>
-        <option value="365">Daily</option>
-      </select>
-      <button onclick="calcCompound()">Calculate</button>
-      <button onclick="clearCompound()" type="button">Clear</button>
-      <div id="ci-result" class="result" style="display:none"></div>
+  <div class="tab-content" id="tab-ci">
+    <div class="explanation">
+      See how your investments grow over time. Supports regular contributions.
     </div>
-  </details>
+    <label for="ci-principal">Initial Amount ($)</label>
+    <input type="number" id="ci-principal" min="0" step="any" placeholder="e.g. 5000">
+    <label for="ci-rate">Annual Interest Rate (%)</label>
+    <input type="number" id="ci-rate" min="0" step="any" placeholder="e.g. 8">
+    <label for="ci-years">Years</label>
+    <input type="number" id="ci-years" min="1" step="1" placeholder="e.g. 10">
+    <label for="ci-contrib">Regular Contribution ($/period)</label>
+    <input type="number" id="ci-contrib" min="0" step="any" placeholder="e.g. 100">
+    <label for="ci-freq">Compounding Frequency</label>
+    <select id="ci-freq">
+      <option value="1">Annually</option>
+      <option value="2">Semi-annually</option>
+      <option value="4">Quarterly</option>
+      <option value="12" selected>Monthly</option>
+      <option value="52">Weekly</option>
+      <option value="365">Daily</option>
+    </select>
+    <button onclick="calcCompound()">Calculate</button>
+    <button onclick="clearCompound()" type="button">Clear</button>
+    <div id="ci-result" class="result" style="display:none"></div>
+  </div>
 
   <!-- 3. Position Size Calculator -->
-  <details>
-    <summary>3. Position Size Calculator</summary>
-    <div class="calc-section">
-      <div class="explanation">
-        Manage risk: calculate optimal position size based on account, risk %, and stop-loss.
-      </div>
-      <label for="ps-account">Account Size ($)</label>
-      <input type="number" id="ps-account" min="0" step="any" placeholder="e.g. 10000">
-      <label for="ps-risk">Risk per Trade (%)</label>
-      <input type="number" id="ps-risk" min="0" max="100" step="any" placeholder="e.g. 2">
-      <label for="ps-entry">Entry Price ($)</label>
-      <input type="number" id="ps-entry" min="0" step="any" placeholder="e.g. 50">
-      <label for="ps-stop">Stop-Loss Price ($)</label>
-      <input type="number" id="ps-stop" min="0" step="any" placeholder="e.g. 48">
-      <button onclick="calcPositionSize()">Calculate</button>
-      <button onclick="clearPositionSize()" type="button">Clear</button>
-      <div id="ps-result" class="result" style="display:none"></div>
+  <div class="tab-content" id="tab-ps">
+    <div class="explanation">
+      Manage risk: calculate optimal position size based on account, risk %, and stop-loss.
     </div>
-  </details>
+    <label for="ps-account">Account Size ($)</label>
+    <input type="number" id="ps-account" min="0" step="any" placeholder="e.g. 10000">
+    <label for="ps-risk">Risk per Trade (%)</label>
+    <input type="number" id="ps-risk" min="0" max="100" step="any" placeholder="e.g. 2">
+    <label for="ps-entry">Entry Price ($)</label>
+    <input type="number" id="ps-entry" min="0" step="any" placeholder="e.g. 50">
+    <label for="ps-stop">Stop-Loss Price ($)</label>
+    <input type="number" id="ps-stop" min="0" step="any" placeholder="e.g. 48">
+    <button onclick="calcPositionSize()">Calculate</button>
+    <button onclick="clearPositionSize()" type="button">Clear</button>
+    <div id="ps-result" class="result" style="display:none"></div>
+  </div>
 
   <!-- 4. Dividend Yield Calculator -->
-  <details>
-    <summary>4. Dividend Yield Calculator</summary>
-    <div class="calc-section">
-      <div class="explanation">
-        Calculate dividend yield, annual income, and growth. Compare dividend stocks.
-      </div>
-      <label for="dy-price">Stock Price ($)</label>
-      <input type="number" id="dy-price" min="0" step="any" placeholder="e.g. 40">
-      <label for="dy-dividend">Annual Dividend per Share ($)</label>
-      <input type="number" id="dy-dividend" min="0" step="any" placeholder="e.g. 1.20">
-      <label for="dy-shares">Shares Owned</label>
-      <input type="number" id="dy-shares" min="1" step="1" placeholder="e.g. 100">
-      <label for="dy-growth">Annual Dividend Growth Rate (%)</label>
-      <input type="number" id="dy-growth" min="0" step="any" placeholder="e.g. 5">
-      <label for="dy-years">Years (for growth projection)</label>
-      <input type="number" id="dy-years" min="1" step="1" placeholder="e.g. 5">
-      <button onclick="calcDividendYield()">Calculate</button>
-      <button onclick="clearDividendYield()" type="button">Clear</button>
-      <div id="dy-result" class="result" style="display:none"></div>
+  <div class="tab-content" id="tab-dy">
+    <div class="explanation">
+      Calculate dividend yield, annual income, and growth. Compare dividend stocks.
     </div>
-  </details>
+    <label for="dy-price">Stock Price ($)</label>
+    <input type="number" id="dy-price" min="0" step="any" placeholder="e.g. 40">
+    <label for="dy-dividend">Annual Dividend per Share ($)</label>
+    <input type="number" id="dy-dividend" min="0" step="any" placeholder="e.g. 1.20">
+    <label for="dy-shares">Shares Owned</label>
+    <input type="number" id="dy-shares" min="1" step="1" placeholder="e.g. 100">
+    <label for="dy-growth">Annual Dividend Growth Rate (%)</label>
+    <input type="number" id="dy-growth" min="0" step="any" placeholder="e.g. 5">
+    <label for="dy-years">Years (for growth projection)</label>
+    <input type="number" id="dy-years" min="1" step="1" placeholder="e.g. 5">
+    <button onclick="calcDividendYield()">Calculate</button>
+    <button onclick="clearDividendYield()" type="button">Clear</button>
+    <div id="dy-result" class="result" style="display:none"></div>
+  </div>
 
   <!-- 5. Risk-to-Reward Ratio Calculator -->
-  <details>
-    <summary>5. Risk-to-Reward Ratio Calculator</summary>
-    <div class="calc-section">
-      <div class="explanation">
-        Evaluate trade setups: calculate risk/reward ratio using stop-loss and target.
-      </div>
-      <label for="rr-entry">Entry Price ($)</label>
-      <input type="number" id="rr-entry" min="0" step="any" placeholder="e.g. 100">
-      <label for="rr-stop">Stop-Loss Price ($)</label>
-      <input type="number" id="rr-stop" min="0" step="any" placeholder="e.g. 95">
-      <label for="rr-target">Target Price ($)</label>
-      <input type="number" id="rr-target" min="0" step="any" placeholder="e.g. 110">
-      <button onclick="calcRiskReward()">Calculate</button>
-      <button onclick="clearRiskReward()" type="button">Clear</button>
-      <div id="rr-result" class="result" style="display:none"></div>
+  <div class="tab-content" id="tab-rr">
+    <div class="explanation">
+      Evaluate trade setups: calculate risk/reward ratio using stop-loss and target.
     </div>
-  </details>
+    <label for="rr-entry">Entry Price ($)</label>
+    <input type="number" id="rr-entry" min="0" step="any" placeholder="e.g. 100">
+    <label for="rr-stop">Stop-Loss Price ($)</label>
+    <input type="number" id="rr-stop" min="0" step="any" placeholder="e.g. 95">
+    <label for="rr-target">Target Price ($)</label>
+    <input type="number" id="rr-target" min="0" step="any" placeholder="e.g. 110">
+    <button onclick="calcRiskReward()">Calculate</button>
+    <button onclick="clearRiskReward()" type="button">Clear</button>
+    <div id="rr-result" class="result" style="display:none"></div>
+  </div>
 
   <!-- 6. Options Profit/Loss Calculator -->
-  <details>
-    <summary>6. Options Profit/Loss Calculator</summary>
-    <div class="calc-section">
-      <div class="explanation">
-        Simple options P/L: calculate profit or loss for calls/puts at expiration.
-      </div>
-      <label for="op-type">Option Type</label>
-      <select id="op-type">
-        <option value="call">Call</option>
-        <option value="put">Put</option>
-      </select>
-      <label for="op-premium">Premium Paid ($/contract)</label>
-      <input type="number" id="op-premium" min="0" step="any" placeholder="e.g. 2.50">
-      <label for="op-strike">Strike Price ($)</label>
-      <input type="number" id="op-strike" min="0" step="any" placeholder="e.g. 50">
-      <label for="op-stock">Stock Price at Expiration ($)</label>
-      <input type="number" id="op-stock" min="0" step="any" placeholder="e.g. 55">
-      <label for="op-contracts">Contracts</label>
-      <input type="number" id="op-contracts" min="1" step="1" placeholder="e.g. 1">
-      <button onclick="calcOptionsPL()">Calculate</button>
-      <button onclick="clearOptionsPL()" type="button">Clear</button>
-      <div id="op-result" class="result" style="display:none"></div>
+  <div class="tab-content" id="tab-op">
+    <div class="explanation">
+      Simple options P/L: calculate profit or loss for calls/puts at expiration.
     </div>
-  </details>
+    <label for="op-type">Option Type</label>
+    <select id="op-type">
+      <option value="call">Call</option>
+      <option value="put">Put</option>
+    </select>
+    <label for="op-premium">Premium Paid ($/contract)</label>
+    <input type="number" id="op-premium" min="0" step="any" placeholder="e.g. 2.50">
+    <label for="op-strike">Strike Price ($)</label>
+    <input type="number" id="op-strike" min="0" step="any" placeholder="e.g. 50">
+    <label for="op-stock">Stock Price at Expiration ($)</label>
+    <input type="number" id="op-stock" min="0" step="any" placeholder="e.g. 55">
+    <label for="op-contracts">Contracts</label>
+    <input type="number" id="op-contracts" min="1" step="1" placeholder="e.g. 1">
+    <button onclick="calcOptionsPL()">Calculate</button>
+    <button onclick="clearOptionsPL()" type="button">Clear</button>
+    <div id="op-result" class="result" style="display:none"></div>
+  </div>
 
   <footer style="text-align:center; color:var(--muted); font-size:0.95em; margin-top:2em;">
     &copy; 2025 CalcMode. For informational purposes only.
   </footer>
 
   <script>
-    // 1. Percentage Gain/Loss Calculator
+    // Tab switching logic
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+      });
+    });
+
+    // --- Calculators (same as before) ---
     function calcPercentGain() {
       const entry = parseFloat(document.getElementById('pg-entry').value);
       const exit = parseFloat(document.getElementById('pg-exit').value);
@@ -326,7 +363,6 @@
       document.getElementById('pg-result').style.display = 'none';
     }
 
-    // 2. Compound Interest Calculator
     function calcCompound() {
       const P = parseFloat(document.getElementById('ci-principal').value);
       const r = parseFloat(document.getElementById('ci-rate').value) / 100;
@@ -339,8 +375,6 @@
         resultDiv.innerHTML = "Please enter valid values.";
         return;
       }
-      // Compound interest with regular contributions
-      // FV = P*(1+r/n)^(nt) + PMT*(((1+r/n)^(nt)-1)/(r/n))
       let FV = P * Math.pow(1 + r/n, n*t);
       if (contrib > 0 && r > 0) {
         FV += contrib * ((Math.pow(1 + r/n, n*t) - 1) / (r/n));
@@ -362,7 +396,6 @@
       document.getElementById('ci-result').style.display = 'none';
     }
 
-    // 3. Position Size Calculator
     function calcPositionSize() {
       const account = parseFloat(document.getElementById('ps-account').value);
       const riskPct = parseFloat(document.getElementById('ps-risk').value) / 100;
@@ -390,7 +423,6 @@
       document.getElementById('ps-result').style.display = 'none';
     }
 
-    // 4. Dividend Yield Calculator
     function calcDividendYield() {
       const price = parseFloat(document.getElementById('dy-price').value);
       const dividend = parseFloat(document.getElementById('dy-dividend').value);
@@ -423,7 +455,6 @@
       document.getElementById('dy-result').style.display = 'none';
     }
 
-    // 5. Risk-to-Reward Ratio Calculator
     function calcRiskReward() {
       const entry = parseFloat(document.getElementById('rr-entry').value);
       const stop = parseFloat(document.getElementById('rr-stop').value);
@@ -450,7 +481,6 @@
       document.getElementById('rr-result').style.display = 'none';
     }
 
-    // 6. Options Profit/Loss Calculator
     function calcOptionsPL() {
       const type = document.getElementById('op-type').value;
       const premium = parseFloat(document.getElementById('op-premium').value);
