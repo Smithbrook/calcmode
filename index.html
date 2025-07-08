@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Stock Trader’s Calculator Suite | CalcMode</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Essential calculators for stock traders and investors: percentage gain/loss, compound interest, position size, dividend yield, risk/reward, options P/L.">
+  <meta name="description" content="Essential calculators for stock traders and investors: percentage change, compound interest, position size, dividend yield, risk/reward, options P/L.">
   <link rel="icon" type="image/svg+xml" href="CalcMode.svg">
   <style>
     :root {
@@ -191,7 +191,7 @@
     <a href="about.html">About</a>
   </nav>
   <div class="tabs" id="tabs">
-    <button class="tab-btn active" data-tab="pg">Gain/Loss</button>
+    <button class="tab-btn active" data-tab="pg">Percentage Change</button>
     <button class="tab-btn" data-tab="ci">Compound</button>
     <button class="tab-btn" data-tab="ps">Position Size</button>
     <button class="tab-btn" data-tab="dy">Dividend Yield</button>
@@ -199,21 +199,19 @@
     <button class="tab-btn" data-tab="op">Options P/L</button>
   </div>
 
-  <!-- 1. Percentage Gain/Loss Calculator -->
+  <!-- 1. Percentage Change Calculator -->
   <div class="tab-content active" id="tab-pg">
     <div class="explanation">
-      Calculate your trade’s gain/loss, including fees. See both dollar and percent returns.
+      Calculate the percentage change between any two values. Works for stocks, options, futures, and more.
     </div>
-    <label for="pg-entry">Entry Price ($)</label>
-    <input type="number" id="pg-entry" min="0" step="any" placeholder="e.g. 100">
-    <label for="pg-exit">Exit Price ($)</label>
-    <input type="number" id="pg-exit" min="0" step="any" placeholder="e.g. 120">
-    <label for="pg-shares">Shares</label>
-    <input type="number" id="pg-shares" min="1" step="1" placeholder="e.g. 10">
-    <label for="pg-fees">Total Fees/Commissions ($)</label>
-    <input type="number" id="pg-fees" min="0" step="any" placeholder="e.g. 2.50">
-    <button onclick="calcPercentGain()">Calculate</button>
-    <button onclick="clearPercentGain()" type="button">Clear</button>
+    <label for="pg-entry">Starting Value</label>
+    <input type="number" id="pg-entry" step="any" placeholder="e.g. 100">
+    <label for="pg-exit">Ending Value</label>
+    <input type="number" id="pg-exit" step="any" placeholder="e.g. 120">
+    <label for="pg-fees">Total Fees/Commissions (optional)</label>
+    <input type="number" id="pg-fees" step="any" placeholder="e.g. 2.50">
+    <button onclick="calcPercentChange()">Calculate</button>
+    <button onclick="clearPercentChange()" type="button">Clear</button>
     <div id="pg-result" class="result" style="display:none"></div>
   </div>
 
@@ -336,30 +334,31 @@
       });
     });
 
-    // 1. Percentage Gain/Loss Calculator
-    function calcPercentGain() {
+    // 1. Percentage Change Calculator
+    function calcPercentChange() {
       const entry = parseFloat(document.getElementById('pg-entry').value);
       const exit = parseFloat(document.getElementById('pg-exit').value);
-      const shares = parseFloat(document.getElementById('pg-shares').value);
       const fees = parseFloat(document.getElementById('pg-fees').value) || 0;
       const resultDiv = document.getElementById('pg-result');
-      if (isNaN(entry) || isNaN(exit) || isNaN(shares) || shares <= 0 || entry < 0 || exit < 0) {
+      if (isNaN(entry) || isNaN(exit)) {
         resultDiv.style.display = 'block';
-        resultDiv.innerHTML = "Please enter valid entry, exit, and share values.";
+        resultDiv.innerHTML = "Please enter valid starting and ending values.";
         return;
       }
-      const gross = (exit - entry) * shares;
-      const net = gross - fees;
-      const percent = entry > 0 ? (net / (entry * shares)) * 100 : 0;
+      let netChange = exit - entry;
+      if (!isNaN(fees) && fees !== 0) {
+        netChange -= fees;
+      }
+      const percent = entry !== 0 ? (netChange / Math.abs(entry)) * 100 : 0;
       resultDiv.style.display = 'block';
       resultDiv.innerHTML = `
-        <strong>Net P/L:</strong> $${net.toFixed(2)}<br>
-        <strong>Return:</strong> ${percent.toFixed(2)}%
-        <br><span style="color:var(--muted);font-size:0.97em;">(Includes fees: $${fees.toFixed(2)})</span>
+        <strong>Net Change:</strong> ${netChange >= 0 ? '+' : ''}$${netChange.toFixed(2)}<br>
+        <strong>Percentage Change:</strong> ${percent >= 0 ? '+' : ''}${percent.toFixed(2)}%
+        ${fees !== 0 ? `<br><span style="color:var(--muted);font-size:0.97em;">(Includes fees: $${fees.toFixed(2)})</span>` : ''}
       `;
     }
-    function clearPercentGain() {
-      ['pg-entry','pg-exit','pg-shares','pg-fees'].forEach(id => document.getElementById(id).value = '');
+    function clearPercentChange() {
+      ['pg-entry','pg-exit','pg-fees'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('pg-result').style.display = 'none';
     }
 
