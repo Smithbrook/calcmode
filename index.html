@@ -1,248 +1,789 @@
-<!-- calcmode_complete.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Stock Trader's Calculator Suite | CalcMode</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f8f9fb;
-      color: #222;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #222;
-      padding: 32px 0 24px 0;
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .logo-text {
-      font-size: 2.8rem;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 2px 2px 8px #444, 0 2px 12px #000;
-      letter-spacing: 2px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      display: inline-block;
-      user-select: none;
-    }
-    main {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 16px 32px 16px;
-    }
-    h1, h2, h3 {
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5em;
-    }
-    h2 {
-      font-size: 1.3rem;
-      margin-top: 2em;
-      margin-bottom: 0.5em;
-    }
-    h3 {
-      font-size: 1.1rem;
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-    }
-    section {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      margin-bottom: 32px;
-      padding: 24px 20px 16px 20px;
-    }
-    .about-section {
-      background: #f3f6fa;
-      border: 1px solid #e0e6ef;
-      box-shadow: none;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      padding: 28px 24px;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .about-section h2 {
-      color: #1a3a6b;
-      margin-bottom: 0.5em;
-    }
-    .about-section p {
-      font-size: 1.08rem;
-      color: #2a2a2a;
-      margin: 0 auto;
-      max-width: 540px;
-      line-height: 1.6;
-    }
-    footer {
-      background: #23272f;
-      color: #e6e6e6;
-      padding: 28px 0 18px 0;
-      text-align: center;
-      font-size: 1rem;
-      border-top: 2px solid #e0e6ef;
-      margin-top: 40px;
-    }
-    .footer-links {
-      margin-bottom: 10px;
-    }
-    .footer-links a {
-      color: #7ec4fa;
-      text-decoration: none;
-      margin: 0 18px;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    @media (max-width: 600px) {
-      main {
-        padding: 0 4px 24px 4px;
-      }
-      section, .about-section {
-        padding: 16px 6px 10px 6px;
-      }
-      .logo-text {
-        font-size: 2rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trader's Calculator Suite | CalcMode</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .card-glass {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .tab-active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        .result-show {
+            display: block;
+        }
+        .result-hide {
+            display: none;
+        }
+        .logo-text {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+        .logo-accent {
+            color: #ffd700;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <span class="logo-text">CalcMode</span>
-  </header>
-  <main>
-    <h1>Stock Trader's Calculator Suite</h1>
-    <p>Essential tools for investors &amp; traders</p>
+<body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <header class="glass-effect py-4 mb-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="logo-text">
+                    <i class="fas fa-calculator mr-2"></i>Calc<span class="logo-accent">Mode</span>
+                </div>
+                <nav class="flex space-x-6">
+                    <a href="#home" class="text-white hover:text-yellow-300 font-medium transition-colors">Home</a>
+                    <a href="#about" class="text-white hover:text-yellow-300 font-medium transition-colors">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <section>
-      <h2>Percentage Change Calculator</h2>
-      <p>Calculate the percentage change between any two values. Works for stocks, options, futures, and more.</p>
-      <!-- Calculator form and results here -->
-      <div>
-        <strong>Starting Value:</strong>$200.00<br>
-        <strong>Ending Value:</strong>$233.00<br>
-        <strong>Fees/Commissions:</strong>$0.00<br>
-        <strong>Net Ending Value:</strong>$233.00
-        <hr>
-        <strong>Dollar Change:</strong>+$33.00<br>
-        <strong>Percentage Change:</strong>+16.50%
-      </div>
-    </section>
+    <div class="container mx-auto px-4">
+        <!-- Hero Section -->
+        <section id="home" class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white mb-4 drop-shadow-lg">Stock Trader's Calculator Suite</h1>
+            <p class="text-xl text-white opacity-90 mb-8">Essential tools for investors & traders</p>
+        </section>
 
-    <section>
-      <h2>Compound Interest Calculator</h2>
-      <p>See how your investments grow over time. Supports regular contributions.</p>
-      <!-- Calculator form and results here -->
-      <div>
-        <strong>Initial Amount:</strong>$120000.00<br>
-        <strong>Total Contributions:</strong>$12000.00<br>
-        <strong>Total Invested:</strong>$132000.00<br>
-        <strong>Interest Earned:</strong>$170315.16
-        <hr>
-        <strong>Final Amount:</strong>$302315.16<br>
-        <strong>Total Return:</strong>129.03%
-      </div>
-    </section>
+        <!-- Calculator Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button class="tab-button tab-active px-6 py-3 rounded-full font-medium transition-all duration-300 hover:transform hover:-translate-y-1" data-tab="percentage">
+                <i class="fas fa-percentage mr-2"></i>Percentage Change
+            </button>
+            <button class="tab-button glass-effect text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:transform hover:-translate-y-1" data-tab="compound">
+                <i class="fas fa-chart-line mr-2"></i>Compound Interest
+            </button>
+            <button class="tab-button glass-effect text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:transform hover:-translate-y-1" data-tab="position">
+                <i class="fas fa-balance-scale mr-2"></i>Position Size
+            </button>
+            <button class="tab-button glass-effect text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:transform hover:-translate-y-1" data-tab="dividend">
+                <i class="fas fa-coins mr-2"></i>Dividend Yield
+            </button>
+            <button class="tab-button glass-effect text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:transform hover:-translate-y-1" data-tab="risk">
+                <i class="fas fa-shield-alt mr-2"></i>Risk/Reward
+            </button>
+            <button class="tab-button glass-effect text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:transform hover:-translate-y-1" data-tab="options">
+                <i class="fas fa-chart-area mr-2"></i>Options P/L
+            </button>
+        </div>
 
-    <section>
-      <h2>Position Size Calculator</h2>
-      <p>Manage risk: calculate optimal position size based on account, risk %, and stop-loss.</p>
-      <!-- Calculator form and results here -->
-      <div>
-        <strong>Account Size:</strong>$11111111.00<br>
-        <strong>Risk Amount:</strong>$222222.22<br>
-        <strong>Risk per Share:</strong>$2.00
-        <hr>
-        <strong>Position Size:</strong>111111 shares<br>
-        <strong>Total Investment:</strong>$1333333.32<br>
-        <strong>% of Account:</strong>12.00%
-      </div>
-    </section>
+        <!-- Banner Ad Space -->
+        <div class="card-glass rounded-lg p-6 mb-8 text-center shadow-2xl max-w-3xl mx-auto">
+            <div class="text-gray-600 text-lg font-medium">
+                <i class="fas fa-ad mr-2"></i>728x90 Banner Ad Space - Link to Your Gumroad Store
+            </div>
+        </div>
 
-    <section>
-      <h2>Dividend Yield Calculator</h2>
-      <p>Calculate dividend yield, annual income, and growth. Compare dividend stocks.</p>
-      <!-- Calculator form and results here -->
-      <div>
-        <strong>Stock Price:</strong>$12.00<br>
-        <strong>Annual Dividend:</strong>$1.00<br>
-        <strong>Shares Owned:</strong>11111
-        <hr>
-        <strong>Dividend Yield:</strong>8.33%<br>
-        <strong>Annual Income:</strong>$11111.00<br>
-        <strong>Monthly Income:</strong>$925.92
-        <hr>
-        <strong>After 11 years (11% growth):</strong><br>
-        <strong>Future Dividend per Share:</strong>$3.15<br>
-        <strong>Future Annual Income:</strong>$35019.18<br>
-        <strong>Future Yield on Cost:</strong>26.26%
-      </div>
-    </section>
+        <!-- Calculator Container -->
+        <div class="card-glass rounded-2xl p-8 mb-12 shadow-2xl">
+            <!-- Percentage Change Calculator -->
+            <div id="percentage" class="calculator-content">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-percentage text-blue-600 mr-3"></i>Percentage Change Calculator
+                </h2>
+                <p class="text-gray-600 mb-6">Calculate the percentage change between any two values. Works for stocks, options, futures, and more.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Starting Value</label>
+                        <input type="number" id="startingValue" step="0.01" placeholder="Enter starting value" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ending Value</label>
+                        <input type="number" id="endingValue" step="0.01" placeholder="Enter ending value" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Total Fees/Commissions (optional)</label>
+                    <input type="number" id="totalFees" step="0.01" placeholder="Enter total fees" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="flex gap-4 mb-6">
+                    <button onclick="calculatePercentageChange()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:transform hover:-translate-y-1 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Calculate
+                    </button>
+                    <button onclick="clearPercentageChange()" class="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-eraser mr-2"></i>Clear
+                    </button>
+                </div>
+                
+                <div id="percentageResult" class="result-hide bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg border-l-4 border-blue-500"></div>
+            </div>
 
-    <section>
-      <h2>Risk/Reward Calculator</h2>
-      <p>Evaluate trade setups: calculate risk/reward ratio using stop-loss and target.</p>
-      <!-- Calculator form and results here -->
-      <div>
-        <strong>Trade Direction:</strong>Long (Buy)<br>
-        <strong>Entry Price:</strong>$12.00<br>
-        <strong>Stop-Loss Price:</strong>$11.00<br>
-        <strong>Target Price:</strong>$14.00
-        <hr>
-        <strong>Risk per Share:</strong>$1.00<br>
-        <strong>Reward per Share:</strong>$2.00<br>
-        <strong>Risk/Reward Ratio:</strong>1:2.00
-        <br>✅ Good risk/reward ratio
-      </div>
-    </section>
+            <!-- Compound Interest Calculator -->
+            <div id="compound" class="calculator-content hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-chart-line text-green-600 mr-3"></i>Compound Interest Calculator
+                </h2>
+                <p class="text-gray-600 mb-6">See how your investments grow over time. Supports regular contributions.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Initial Amount ($)</label>
+                        <input type="number" id="initialAmount" step="0.01" placeholder="Enter initial amount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Annual Interest Rate (%)</label>
+                        <input type="number" id="annualRate" step="0.01" placeholder="Enter annual rate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Years</label>
+                        <input type="number" id="years" step="1" placeholder="Enter number of years" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Regular Contribution ($/period)</label>
+                        <input type="number" id="regularContribution" step="0.01" placeholder="Enter contribution amount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Compounding Frequency</label>
+                    <select id="compoundingFrequency" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="365">Daily</option>
+                        <option value="52">Weekly</option>
+                        <option value="12">Monthly</option>
+                        <option value="4">Quarterly</option>
+                        <option value="2">Semi-annually</option>
+                        <option value="1">Annually</option>
+                    </select>
+                </div>
+                
+                <div class="flex gap-4 mb-6">
+                    <button onclick="calculateCompound()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:transform hover:-translate-y-1 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Calculate
+                    </button>
+                    <button onclick="clearCompound()" class="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-eraser mr-2"></i>Clear
+                    </button>
+                </div>
+                
+                <div id="compoundResult" class="result-hide bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg border-l-4 border-green-500"></div>
+            </div>
 
-    <section>
-      <h2>Options P/L Calculator</h2>
-      <p>Simple options P/L: calculate profit or loss for calls/puts at expiration.</p>
-      <!-- Calculator form and results here -->
-      <div>
-        <strong>Option Type:</strong>Call<br>
-        <strong>Contracts:</strong>6<br>
-        <strong>Premium Paid:</strong>$1.00<br>
-        <strong>Strike Price:</strong>$12.00<br>
-        <strong>Stock Price at Expiration:</strong>$13.00
-        <hr>
-        <strong>Intrinsic Value per Share:</strong>$1.00<br>
-        <strong>Total Premium Paid:</strong>$600.00<br>
-        <strong>Total Option Value:</strong>$600.00<br>
-        <strong>Net P/L:</strong>+$0.00<br>
-        <strong>Percentage Return:</strong>+0.00%
-      </div>
-    </section>
+            <!-- Position Size Calculator -->
+            <div id="position" class="calculator-content hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-balance-scale text-orange-600 mr-3"></i>Position Size Calculator
+                </h2>
+                <p class="text-gray-600 mb-6">Manage risk: calculate optimal position size based on account, risk %, and stop-loss.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Account Size ($)</label>
+                        <input type="number" id="accountSize" step="0.01" placeholder="Enter account size" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Risk per Trade (%)</label>
+                        <input type="number" id="riskPerTrade" step="0.01" placeholder="Enter risk percentage" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Entry Price ($)</label>
+                        <input type="number" id="entryPrice" step="0.01" placeholder="Enter entry price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Stop-Loss Price ($)</label>
+                        <input type="number" id="stopLossPrice" step="0.01" placeholder="Enter stop-loss price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 mb-6">
+                    <button onclick="calculatePositionSize()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:transform hover:-translate-y-1 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Calculate
+                    </button>
+                    <button onclick="clearPositionSize()" class="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-eraser mr-2"></i>Clear
+                    </button>
+                </div>
+                
+                <div id="positionResult" class="result-hide bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg border-l-4 border-orange-500"></div>
+            </div>
 
-    <!-- ABOUT SECTION -->
-    <section class="about-section" id="about">
-      <h2>About CalcMode</h2>
-      <p>
-        CalcMode is a suite of intuitive, no-nonsense calculators designed for investors and traders who value clarity and precision. Whether you're managing risk, projecting returns, or analyzing trades, CalcMode delivers fast, reliable answers—no clutter, no distractions. Built by traders, for traders.
-      </p>
-    </section>
-  </main>
+            <!-- Dividend Yield Calculator -->
+            <div id="dividend" class="calculator-content hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-coins text-yellow-600 mr-3"></i>Dividend Yield Calculator
+                </h2>
+                <p class="text-gray-600 mb-6">Calculate dividend yield, annual income, and growth. Compare dividend stocks.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Stock Price ($)</label>
+                        <input type="number" id="stockPrice" step="0.01" placeholder="Enter stock price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Annual Dividend per Share ($)</label>
+                        <input type="number" id="annualDividend" step="0.01" placeholder="Enter annual dividend" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Shares Owned</label>
+                        <input type="number" id="sharesOwned" step="1" placeholder="Enter number of shares" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Annual Dividend Growth Rate (%)</label>
+                        <input type="number" id="dividendGrowthRate" step="0.01" placeholder="Enter growth rate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Years (for growth projection)</label>
+                    <input type="number" id="projectionYears" step="1" placeholder="Enter projection years" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="flex gap-4 mb-6">
+                    <button onclick="calculateDividendYield()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:transform hover:-translate-y-1 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Calculate
+                    </button>
+                    <button onclick="clearDividendYield()" class="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-eraser mr-2"></i>Clear
+                    </button>
+                </div>
+                
+                <div id="dividendResult" class="result-hide bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg border-l-4 border-yellow-500"></div>
+            </div>
 
-  <footer>
-    <div class="footer-links">
-      <a href="#about">About</a> |
-      <a href="https://calcmode.gumroad.com/" target="_blank" rel="noopener">Learn</a> |
-      (c) 2025 CalcMode, a <a href="https://smithbrook.org" target="_blank" rel="noopener">Smithbrook</a> project.
+            <!-- Risk/Reward Calculator -->
+            <div id="risk" class="calculator-content hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-shield-alt text-red-600 mr-3"></i>Risk/Reward Calculator
+                </h2>
+                <p class="text-gray-600 mb-6">Evaluate trade setups: calculate risk/reward ratio using stop-loss and target.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Entry Price ($)</label>
+                        <input type="number" id="riskEntryPrice" step="0.01" placeholder="Enter entry price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Stop-Loss Price ($)</label>
+                        <input type="number" id="riskStopLoss" step="0.01" placeholder="Enter stop-loss price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Target Price ($)</label>
+                    <input type="number" id="targetPrice" step="0.01" placeholder="Enter target price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="flex gap-4 mb-6">
+                    <button onclick="calculateRiskReward()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:transform hover:-translate-y-1 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Calculate
+                    </button>
+                    <button onclick="clearRiskReward()" class="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-eraser mr-2"></i>Clear
+                    </button>
+                </div>
+                
+                <div id="riskResult" class="result-hide bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg border-l-4 border-red-500"></div>
+            </div>
+
+            <!-- Options P/L Calculator -->
+            <div id="options" class="calculator-content hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-chart-area text-purple-600 mr-3"></i>Options P/L Calculator
+                </h2>
+                <p class="text-gray-600 mb-6">Simple options P/L: calculate profit or loss for calls/puts at expiration.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Option Type</label>
+                        <select id="optionType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="call">Call</option>
+                            <option value="put">Put</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Premium Paid ($/contract)</label>
+                        <input type="number" id="premiumPaid" step="0.01" placeholder="Enter premium paid" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Strike Price ($)</label>
+                        <input type="number" id="strikePrice" step="0.01" placeholder="Enter strike price" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Stock Price at Expiration ($)</label>
+                        <input type="number" id="stockPriceAtExpiration" step="0.01" placeholder="Enter stock price at expiration" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Contracts</label>
+                    <input type="number" id="contracts" step="1" placeholder="Enter number of contracts" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="flex gap-4 mb-6">
+                    <button onclick="calculateOptionsPL()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:transform hover:-translate-y-1 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Calculate
+                    </button>
+                    <button onclick="clearOptionsPL()" class="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-eraser mr-2"></i>Clear
+                    </button>
+                </div>
+                
+                <div id="optionsResult" class="result-hide bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg border-l-4 border-purple-500"></div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="card-glass rounded-2xl p-8 mb-12 shadow-2xl">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-info-circle text-blue-600 mr-3"></i>About CalcMode
+            </h2>
+            <p class="text-gray-600 mb-6 text-lg">CalcMode is a comprehensive suite of financial calculators designed specifically for stock traders and investors. Our mission is to provide accurate, easy-to-use tools that help you make informed trading decisions and manage your portfolio effectively.</p>
+            <p class="text-gray-600 mb-8 text-lg">Whether you're a day trader, swing trader, or long-term investor, CalcMode offers the essential calculations you need to succeed in the financial markets. All calculations are performed instantly in your browser, ensuring your data remains private and secure.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-percentage text-blue-600 mr-2"></i>Percentage Change
+                    </h3>
+                    <p class="text-gray-600">Calculate gains and losses on your trades with precision, including the impact of fees and commissions.</p>
+                </div>
+                <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-chart-line text-green-600 mr-2"></i>Compound Interest
+                    </h3>
+                    <p class="text-gray-600">Project the growth of your investments over time with various compounding frequencies and regular contributions.</p>
+                </div>
+                <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-balance-scale text-orange-600 mr-2"></i>Position Sizing
+                    </h3>
+                    <p class="text-gray-600">Manage risk effectively by calculating optimal position sizes based on your account size and risk tolerance.</p>
+                </div>
+                <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-coins text-yellow-600 mr-2"></i>Dividend Analysis
+                    </h3>
+                    <p class="text-gray-600">Evaluate dividend stocks by calculating yields, income projections, and growth scenarios.</p>
+                </div>
+                <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-shield-alt text-red-600 mr-2"></i>Risk/Reward
+                    </h3>
+                    <p class="text-gray-600">Assess trade setups by calculating risk/reward ratios to ensure profitable trading strategies.</p>
+                </div>
+                <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-chart-area text-purple-600 mr-2"></i>Options P/L
+                    </h3>
+                    <p class="text-gray-600">Calculate profit and loss for options trades at expiration for both calls and puts.</p>
+                </div>
+            </div>
+        </section>
     </div>
-    <div style="font-size:0.95em; color:#b0b0b0;">
-      For informational purposes only.
-    </div>
-  </footer>
+
+    <!-- Footer -->
+    <footer class="glass-effect py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <a href="#about" class="text-yellow-300 hover:text-white font-medium transition-colors mr-6">About</a>
+                <span class="text-white">|</span>
+                <a href="https://calcmode.gumroad.com/" target="_blank" class="text-yellow-300 hover:text-white font-medium transition-colors ml-6">Learn</a>
+            </div>
+            <p class="text-white opacity-90">
+                &copy; 2025 CalcMode, a <a href="https://smithbrook.org" target="_blank" class="text-yellow-300 hover:text-white transition-colors">Smithbrook</a> project. For informational purposes only.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and hide all calculators
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('glass-effect', 'text-white');
+                });
+                document.querySelectorAll('.calculator-content').forEach(calc => {
+                    calc.classList.add('hidden');
+                });
+                
+                // Add active class to clicked button and show corresponding calculator
+                button.classList.add('tab-active');
+                button.classList.remove('glass-effect', 'text-white');
+                document.getElementById(tabName).classList.remove('hidden');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Percentage Change Calculator
+        function calculatePercentageChange() {
+            const startingValue = parseFloat(document.getElementById('startingValue').value);
+            const endingValue = parseFloat(document.getElementById('endingValue').value);
+            const totalFees = parseFloat(document.getElementById('totalFees').value) || 0;
+            
+            if (isNaN(startingValue) || isNaN(endingValue)) {
+                alert('Please enter valid starting and ending values.');
+                return;
+            }
+            
+            const netEndingValue = endingValue - totalFees;
+            const absoluteChange = netEndingValue - startingValue;
+            const percentageChange = (absoluteChange / startingValue) * 100;
+            
+            const resultDiv = document.getElementById('percentageResult');
+            resultDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-chart-line mr-2"></i>Results</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Percentage Change:</span>
+                        <span class="font-bold text-blue-600">${percentageChange.toFixed(2)}%</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Absolute Change:</span>
+                        <span class="font-bold text-blue-600">$${absoluteChange.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium text-gray-700">Net Ending Value:</span>
+                        <span class="font-bold text-blue-600">$${netEndingValue.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.remove('result-hide');
+            resultDiv.classList.add('result-show');
+        }
+
+        function clearPercentageChange() {
+            document.getElementById('startingValue').value = '';
+            document.getElementById('endingValue').value = '';
+            document.getElementById('totalFees').value = '';
+            document.getElementById('percentageResult').classList.remove('result-show');
+            document.getElementById('percentageResult').classList.add('result-hide');
+        }
+
+        // Compound Interest Calculator
+        function calculateCompound() {
+            const initialAmount = parseFloat(document.getElementById('initialAmount').value);
+            const annualRate = parseFloat(document.getElementById('annualRate').value) / 100;
+            const years = parseInt(document.getElementById('years').value);
+            const regularContribution = parseFloat(document.getElementById('regularContribution').value) || 0;
+            const compoundingFrequency = parseInt(document.getElementById('compoundingFrequency').value);
+            
+            if (isNaN(initialAmount) || isNaN(annualRate) || isNaN(years)) {
+                alert('Please enter valid values for initial amount, annual rate, and years.');
+                return;
+            }
+            
+            const ratePerPeriod = annualRate / compoundingFrequency;
+            const totalPeriods = years * compoundingFrequency;
+            
+            let finalAmount = initialAmount * Math.pow(1 + ratePerPeriod, totalPeriods);
+            
+            if (regularContribution > 0) {
+                const contributionFactor = ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod) * regularContribution;
+                finalAmount += contributionFactor;
+            }
+            
+            const totalContributions = initialAmount + (regularContribution * totalPeriods);
+            const totalGrowth = finalAmount - totalContributions;
+            
+            const resultDiv = document.getElementById('compoundResult');
+            resultDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-chart-line mr-2"></i>Results</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Final Amount:</span>
+                        <span class="font-bold text-green-600">$${finalAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Total Contributions:</span>
+                        <span class="font-bold text-green-600">$${totalContributions.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium text-gray-700">Total Growth:</span>
+                        <span class="font-bold text-green-600">$${totalGrowth.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.remove('result-hide');
+            resultDiv.classList.add('result-show');
+        }
+
+        function clearCompound() {
+            document.getElementById('initialAmount').value = '';
+            document.getElementById('annualRate').value = '';
+            document.getElementById('years').value = '';
+            document.getElementById('regularContribution').value = '';
+            document.getElementById('compoundingFrequency').value = '365';
+            document.getElementById('compoundResult').classList.remove('result-show');
+            document.getElementById('compoundResult').classList.add('result-hide');
+        }
+
+        // Position Size Calculator
+        function calculatePositionSize() {
+            const accountSize = parseFloat(document.getElementById('accountSize').value);
+            const riskPerTrade = parseFloat(document.getElementById('riskPerTrade').value) / 100;
+            const entryPrice = parseFloat(document.getElementById('entryPrice').value);
+            const stopLossPrice = parseFloat(document.getElementById('stopLossPrice').value);
+            
+            if (isNaN(accountSize) || isNaN(riskPerTrade) || isNaN(entryPrice) || isNaN(stopLossPrice)) {
+                alert('Please enter valid values for all fields.');
+                return;
+            }
+            
+            const riskAmount = accountSize * riskPerTrade;
+            const riskPerShare = Math.abs(entryPrice - stopLossPrice);
+            const shares = Math.floor(riskAmount / riskPerShare);
+            const positionValue = shares * entryPrice;
+            
+            const resultDiv = document.getElementById('positionResult');
+            resultDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-balance-scale mr-2"></i>Results</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Number of Shares:</span>
+                        <span class="font-bold text-orange-600">${shares}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Position Value:</span>
+                        <span class="font-bold text-orange-600">$${positionValue.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Risk Amount:</span>
+                        <span class="font-bold text-orange-600">$${riskAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium text-gray-700">Risk per Share:</span>
+                        <span class="font-bold text-orange-600">$${riskPerShare.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.remove('result-hide');
+            resultDiv.classList.add('result-show');
+        }
+
+        function clearPositionSize() {
+            document.getElementById('accountSize').value = '';
+            document.getElementById('riskPerTrade').value = '';
+            document.getElementById('entryPrice').value = '';
+            document.getElementById('stopLossPrice').value = '';
+            document.getElementById('positionResult').classList.remove('result-show');
+            document.getElementById('positionResult').classList.add('result-hide');
+        }
+
+        // Dividend Yield Calculator
+        function calculateDividendYield() {
+            const stockPrice = parseFloat(document.getElementById('stockPrice').value);
+            const annualDividend = parseFloat(document.getElementById('annualDividend').value);
+            const sharesOwned = parseInt(document.getElementById('sharesOwned').value) || 0;
+            const dividendGrowthRate = parseFloat(document.getElementById('dividendGrowthRate').value) / 100 || 0;
+            const projectionYears = parseInt(document.getElementById('projectionYears').value) || 0;
+            
+            if (isNaN(stockPrice) || isNaN(annualDividend)) {
+                alert('Please enter valid stock price and annual dividend.');
+                return;
+            }
+            
+            const dividendYield = (annualDividend / stockPrice) * 100;
+            const annualIncome = annualDividend * sharesOwned;
+            
+            let resultHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-coins mr-2"></i>Results</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Dividend Yield:</span>
+                        <span class="font-bold text-yellow-600">${dividendYield.toFixed(2)}%</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Annual Income:</span>
+                        <span class="font-bold text-yellow-600">$${annualIncome.toFixed(2)}</span>
+                    </div>
+            `;
+            
+            if (projectionYears > 0 && dividendGrowthRate > 0) {
+                const futureAnnualDividend = annualDividend * Math.pow(1 + dividendGrowthRate, projectionYears);
+                const futureAnnualIncome = futureAnnualDividend * sharesOwned;
+                
+                resultHTML += `
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Future Annual Dividend (${projectionYears} years):</span>
+                        <span class="font-bold text-yellow-600">$${futureAnnualDividend.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium text-gray-700">Future Annual Income (${projectionYears} years):</span>
+                        <span class="font-bold text-yellow-600">$${futureAnnualIncome.toFixed(2)}</span>
+                    </div>
+                `;
+            } else {
+                resultHTML += `</div>`;
+            }
+            
+            if (projectionYears <= 0 || dividendGrowthRate <= 0) {
+                resultHTML += `</div>`;
+            }
+            
+            document.getElementById('dividendResult').innerHTML = resultHTML;
+            document.getElementById('dividendResult').classList.remove('result-hide');
+            document.getElementById('dividendResult').classList.add('result-show');
+        }
+
+        function clearDividendYield() {
+            document.getElementById('stockPrice').value = '';
+            document.getElementById('annualDividend').value = '';
+            document.getElementById('sharesOwned').value = '';
+            document.getElementById('dividendGrowthRate').value = '';
+            document.getElementById('projectionYears').value = '';
+            document.getElementById('dividendResult').classList.remove('result-show');
+            document.getElementById('dividendResult').classList.add('result-hide');
+        }
+
+        // Risk/Reward Calculator
+        function calculateRiskReward() {
+            const entryPrice = parseFloat(document.getElementById('riskEntryPrice').value);
+            const stopLossPrice = parseFloat(document.getElementById('riskStopLoss').value);
+            const targetPrice = parseFloat(document.getElementById('targetPrice').value);
+            
+            if (isNaN(entryPrice) || isNaN(stopLossPrice) || isNaN(targetPrice)) {
+                alert('Please enter valid values for all fields.');
+                return;
+            }
+            
+            const riskAmount = Math.abs(entryPrice - stopLossPrice);
+            const rewardAmount = Math.abs(targetPrice - entryPrice);
+            const riskRewardRatio = rewardAmount / riskAmount;
+            
+            const resultDiv = document.getElementById('riskResult');
+            resultDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-shield-alt mr-2"></i>Results</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Risk Amount:</span>
+                        <span class="font-bold text-red-600">$${riskAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Reward Amount:</span>
+                        <span class="font-bold text-red-600">$${rewardAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium text-gray-700">Risk/Reward Ratio:</span>
+                        <span class="font-bold text-red-600">1:${riskRewardRatio.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.remove('result-hide');
+            resultDiv.classList.add('result-show');
+        }
+
+        function clearRiskReward() {
+            document.getElementById('riskEntryPrice').value = '';
+            document.getElementById('riskStopLoss').value = '';
+            document.getElementById('targetPrice').value = '';
+            document.getElementById('riskResult').classList.remove('result-show');
+            document.getElementById('riskResult').classList.add('result-hide');
+        }
+
+        // Options P/L Calculator
+        function calculateOptionsPL() {
+            const optionType = document.getElementById('optionType').value;
+            const premiumPaid = parseFloat(document.getElementById('premiumPaid').value);
+            const strikePrice = parseFloat(document.getElementById('strikePrice').value);
+            const stockPriceAtExpiration = parseFloat(document.getElementById('stockPriceAtExpiration').value);
+            const contracts = parseInt(document.getElementById('contracts').value);
+            
+            if (isNaN(premiumPaid) || isNaN(strikePrice) || isNaN(stockPriceAtExpiration) || isNaN(contracts)) {
+                alert('Please enter valid values for all fields.');
+                return;
+            }
+            
+            let intrinsicValue = 0;
+            if (optionType === 'call') {
+                intrinsicValue = Math.max(0, stockPriceAtExpiration - strikePrice);
+            } else {
+                intrinsicValue = Math.max(0, strikePrice - stockPriceAtExpiration);
+            }
+            
+            const profitLossPerContract = intrinsicValue - premiumPaid;
+            const totalProfitLoss = profitLossPerContract * contracts * 100;
+            
+            const resultDiv = document.getElementById('optionsResult');
+            resultDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-chart-area mr-2"></i>Results</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">Intrinsic Value:</span>
+                        <span class="font-bold text-purple-600">$${intrinsicValue.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="font-medium text-gray-700">P/L per Contract:</span>
+                        <span class="font-bold text-purple-600">$${profitLossPerContract.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium text-gray-700">Total P/L:</span>
+                        <span class="font-bold text-purple-600">$${totalProfitLoss.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.remove('result-hide');
+            resultDiv.classList.add('result-show');
+        }
+
+        function clearOptionsPL() {
+            document.getElementById('optionType').value = 'call';
+            document.getElementById('premiumPaid').value = '';
+            document.getElementById('strikePrice').value = '';
+            document.getElementById('stockPriceAtExpiration').value = '';
+            document.getElementById('contracts').value = '';
+            document.getElementById('optionsResult').classList.remove('result-show');
+            document.getElementById('optionsResult').classList.add('result-hide');
+        }
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95ccaad87aa2db62","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDv%2BcCwkdiI3AHbv1mwSxuMDAz8BImKNW1ch2y2pdhK5RR%2BO0uS2c6H3u4pkRnlCBdNYRDtgHSbsooqFEl6cz0vnTN5aRiT7vY7nx6D%2FUi984JyOJPOp0CB0qx%2FY1X10xzlAgX71okJhSIEx3Wo0hXs05VFQsxbBGZFNkfBwBCxi51F0fKeGJgh94%2BKzpY5x7kqW0oXrNsbCAJQjKWfY9VTMwVfKB96ErYWGbDqROlx85SLhQnzn5Ppi2YFB6MecftWZL%2F2hg3PJinCPHQaTnyqgZk6Se14tIRxIMZN3QGB1gakakigDd5x1mUUy7KdvtZ9Fn5%2B7UWsXGZcSJxZLPVKuOYTLseJmRa%2BDzFyMsuq55JGw6gHx50fc%2BP6eS6d81HnRsvnnX7faDWD%2B4vmCmg9kSqUAbZgBmjxsjIMGzhFjmC3cLD%2B9bXv%2BmdEGU%2FVZ%2BxC2KkjfqQMT45hBGJCCfCXpsSrGzzKddFl3W9GNPPjeMTi6HL%2BlLRlF%2Fw%2FjDrLTN8A%3D%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDv+cCwkdiI3AHbv1mwSxuMDAz8BImKNW1ch2y2pdhK5RR+O0uS2c6H3u4pkRnlCBdNYRDtgHSbsooqFEl6cz0vnTN5aRiT7vY7nx6D/Ui984JyOJPOp0CB0qx/Y1X10xzlAgX71okJhSIEx3Wo0hXs05VFQsxbBGZFNkfBwBCxi51F0fKeGJgh94+KzpY5x7kqW0oXrNsbCAJQjKWfY9VTMwVfKB96ErYWGbDqROlx85SLhQnzn5Ppi2YFB6MecftWZL/2hg3PJinCPHQaTnyqgZk6Se14tIRxIMZN3QGB1gakakigDd5x1mUUy7KdvtZ9Fn5+7UWsXGZcSJxZLPVKuOYTLseJmRa+DzFyMsuq55JGw6gHx50fc+P6eS6d81HnRsvnnX7faDWD+4vmCmg9kSqUAbZgBmjxsjIMGzhFjmC3cLD+9bXv+mdEGU/VZ+xC2KkjfqQMT45hBGJCCfCXpsSrGzzKddFl3W9GNPPjeMTi6HL+lLRlF/w/jDrLTN8A==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
