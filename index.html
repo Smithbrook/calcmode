@@ -1,457 +1,248 @@
+<!-- calcmode_complete.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Trader's Calculator Suite | CalcMode</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: #ffd700;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #ffd700;
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-        }
-
-        .ad-banner {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 2rem auto;
-            text-align: center;
-            max-width: 728px;
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .ad-banner-placeholder {
-            color: #666;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .calculator-tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tab-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            padding: 0.8rem 1.5rem;
-            color: white;
-            cursor: pointer;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .tab-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .tab-button.active {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .calculator-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .calculator {
-            display: none;
-        }
-
-        .calculator.active {
-            display: block;
-        }
-
-        .calculator h2 {
-            color: #333;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .calculator p {
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-            margin-bottom: 0;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #333;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #333;
-            border: 2px solid #ddd;
-        }
-
-        .btn-secondary:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-        }
-
-        .result {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            display: none;
-        }
-
-        .result.show {
-            display: block;
-        }
-
-        .result h3 {
-            color: #333;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
-        }
-
-        .result-label {
-            font-weight: 500;
-            color: #333;
-        }
-
-        .result-value {
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .about-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .about-section h2 {
-            color: #333;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .about-section p {
-            color: #666;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-card h3 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .feature-card p {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-
-        footer {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: 3rem;
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: #ffd700;
-            text-decoration: none;
-            margin: 0 1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .calculator-tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .tab-button {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .logo {
-                margin-bottom: 1rem;
-            }
-
-            nav a {
-                margin: 0 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Stock Trader's Calculator Suite | CalcMode</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fb;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #222;
+      padding: 32px 0 24px 0;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo-text {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 8px #444, 0 2px 12px #000;
+      letter-spacing: 2px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: inline-block;
+      user-select: none;
+    }
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 16px 32px 16px;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5em;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+    }
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    section {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      margin-bottom: 32px;
+      padding: 24px 20px 16px 20px;
+    }
+    .about-section {
+      background: #f3f6fa;
+      border: 1px solid #e0e6ef;
+      box-shadow: none;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      padding: 28px 24px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .about-section h2 {
+      color: #1a3a6b;
+      margin-bottom: 0.5em;
+    }
+    .about-section p {
+      font-size: 1.08rem;
+      color: #2a2a2a;
+      margin: 0 auto;
+      max-width: 540px;
+      line-height: 1.6;
+    }
+    footer {
+      background: #23272f;
+      color: #e6e6e6;
+      padding: 28px 0 18px 0;
+      text-align: center;
+      font-size: 1rem;
+      border-top: 2px solid #e0e6ef;
+      margin-top: 40px;
+    }
+    .footer-links {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: #7ec4fa;
+      text-decoration: none;
+      margin: 0 18px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      main {
+        padding: 0 4px 24px 4px;
+      }
+      section, .about-section {
+        padding: 16px 6px 10px 6px;
+      }
+      .logo-text {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">Calc<span>Mode</span></div>
-                <nav>
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+  <header>
+    <span class="logo-text">CalcMode</span>
+  </header>
+  <main>
+    <h1>Stock Trader's Calculator Suite</h1>
+    <p>Essential tools for investors &amp; traders</p>
 
-    <div class="container">
-        <section class="hero" id="home">
-            <h1>Stock Trader's Calculator Suite</h1>
-            <p>Essential tools for investors & traders</p>
-        </section>
+    <section>
+      <h2>Percentage Change Calculator</h2>
+      <p>Calculate the percentage change between any two values. Works for stocks, options, futures, and more.</p>
+      <!-- Calculator form and results here -->
+      <div>
+        <strong>Starting Value:</strong>$200.00<br>
+        <strong>Ending Value:</strong>$233.00<br>
+        <strong>Fees/Commissions:</strong>$0.00<br>
+        <strong>Net Ending Value:</strong>$233.00
+        <hr>
+        <strong>Dollar Change:</strong>+$33.00<br>
+        <strong>Percentage Change:</strong>+16.50%
+      </div>
+    </section>
 
-        <div class="calculator-tabs">
-            <button class="tab-button active" data-tab="percentage">Percentage Change</button>
-            <button class="tab-button" data-tab="compound">Compound Interest</button>
-            <button class="tab-button" data-tab="position">Position Size</button>
-            <button class="tab-button" data-tab="dividend">Dividend Yield</button>
-            <button class="tab-button" data-tab="risk">Risk/Reward</button>
-            <button class="tab-button" data-tab="options">Options P/L</button>
-        </div>
+    <section>
+      <h2>Compound Interest Calculator</h2>
+      <p>See how your investments grow over time. Supports regular contributions.</p>
+      <!-- Calculator form and results here -->
+      <div>
+        <strong>Initial Amount:</strong>$120000.00<br>
+        <strong>Total Contributions:</strong>$12000.00<br>
+        <strong>Total Invested:</strong>$132000.00<br>
+        <strong>Interest Earned:</strong>$170315.16
+        <hr>
+        <strong>Final Amount:</strong>$302315.16<br>
+        <strong>Total Return:</strong>129.03%
+      </div>
+    </section>
 
-        <div class="ad-banner">
-            <div class="ad-banner-placeholder">
-                728x90 Banner Ad Space - Link to Your Gumroad Store
-            </div>
-        </div>
+    <section>
+      <h2>Position Size Calculator</h2>
+      <p>Manage risk: calculate optimal position size based on account, risk %, and stop-loss.</p>
+      <!-- Calculator form and results here -->
+      <div>
+        <strong>Account Size:</strong>$11111111.00<br>
+        <strong>Risk Amount:</strong>$222222.22<br>
+        <strong>Risk per Share:</strong>$2.00
+        <hr>
+        <strong>Position Size:</strong>111111 shares<br>
+        <strong>Total Investment:</strong>$1333333.32<br>
+        <strong>% of Account:</strong>12.00%
+      </div>
+    </section>
 
-        <div class="calculator-container">
-            <!-- Percentage Change Calculator -->
-            <div id="percentage" class="calculator active">
-                <h2>Percentage Change Calculator</h2>
-                <p>Calculate the percentage change between any two values. Works for stocks, options, futures, and more.</p>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="startingValue">Starting Value</label>
-                        <input type="number" id="startingValue" step="0.01" placeholder="Enter starting value">
-                    </div>
-                    <div class="form-group">
-                        <label for="endingValue">Ending Value</label>
-                        <input type="number" id="endingValue" step="0.01" placeholder="Enter ending value">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="totalFees">Total Fees/Commissions (optional)</label>
-                    <input type="number" id="totalFees" step="0.01" placeholder="Enter total fees">
-                </div>
-                
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="calculatePercentageChange()">Calculate</button>
-                    <button class="btn btn-secondary" onclick="clearPercentageChange()">Clear</button>
-                </div>
-                
-                <div id="percentageResult" class="result"></div>
-            </div>
+    <section>
+      <h2>Dividend Yield Calculator</h2>
+      <p>Calculate dividend yield, annual income, and growth. Compare dividend stocks.</p>
+      <!-- Calculator form and results here -->
+      <div>
+        <strong>Stock Price:</strong>$12.00<br>
+        <strong>Annual Dividend:</strong>$1.00<br>
+        <strong>Shares Owned:</strong>11111
+        <hr>
+        <strong>Dividend Yield:</strong>8.33%<br>
+        <strong>Annual Income:</strong>$11111.00<br>
+        <strong>Monthly Income:</strong>$925.92
+        <hr>
+        <strong>After 11 years (11% growth):</strong><br>
+        <strong>Future Dividend per Share:</strong>$3.15<br>
+        <strong>Future Annual Income:</strong>$35019.18<br>
+        <strong>Future Yield on Cost:</strong>26.26%
+      </div>
+    </section>
+
+    <section>
+      <h2>Risk/Reward Calculator</h2>
+      <p>Evaluate trade setups: calculate risk/reward ratio using stop-loss and target.</p>
+      <!-- Calculator form and results here -->
+      <div>
+        <strong>Trade Direction:</strong>Long (Buy)<br>
+        <strong>Entry Price:</strong>$12.00<br>
+        <strong>Stop-Loss Price:</strong>$11.00<br>
+        <strong>Target Price:</strong>$14.00
+        <hr>
+        <strong>Risk per Share:</strong>$1.00<br>
+        <strong>Reward per Share:</strong>$2.00<br>
+        <strong>Risk/Reward Ratio:</strong>1:2.00
+        <br>✅ Good risk/reward ratio
+      </div>
+    </section>
+
+    <section>
+      <h2>Options P/L Calculator</h2>
+      <p>Simple options P/L: calculate profit or loss for calls/puts at expiration.</p>
+      <!-- Calculator form and results here -->
+      <div>
+        <strong>Option Type:</strong>Call<br>
+        <strong>Contracts:</strong>6<br>
+        <strong>Premium Paid:</strong>$1.00<br>
+        <strong>Strike Price:</strong>$12.00<br>
+        <strong>Stock Price at Expiration:</strong>$13.00
+        <hr>
+        <strong>Intrinsic Value per Share:</strong>$1.00<br>
+        <strong>Total Premium Paid:</strong>$600.00<br>
+        <strong>Total Option Value:</strong>$600.00<br>
+        <strong>Net P/L:</strong>+$0.00<br>
+        <strong>Percentage Return:</strong>+0.00%
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+      <h2>About CalcMode</h2>
+      <p>
+        CalcMode is a suite of intuitive, no-nonsense calculators designed for investors and traders who value clarity and precision. Whether you're managing risk, projecting returns, or analyzing trades, CalcMode delivers fast, reliable answers—no clutter, no distractions. Built by traders, for traders.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#about">About</a> |
+      <a href="https://calcmode.gumroad.com/" target="_blank" rel="noopener">Learn</a> |
+      (c) 2025 CalcMode, a <a href="https://smithbrook.org" target="_blank" rel="noopener">Smithbrook</a> project.
+    </div>
+    <div style="font-size:0.95em; color:#b0b0b0;">
+      For informational purposes only.
+    </div>
+  </footer>
+</body>
+</html>
